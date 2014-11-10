@@ -1,0 +1,45 @@
+#include <stdio.h>
+
+int main() {
+
+  return 0;
+}
+
+/*******************************
+ * Retorna valor máximo de vetor
+ * tipo double.
+ *******************************/
+double maximo(double x, int n) {
+  int i;
+  double m = x[0];
+
+  for (i = 1; i < n; i++) {
+    if (x[i] > m) 
+      m = x[i];
+  }
+
+  return m;
+}
+
+void encontraVetores() {
+
+  
+  /*Resumo*/
+  /* m  = max{Xi} */
+  /* se x = 0 entao */
+  /*   gama = 0 */
+  /* senão */
+  /*   Xi = Xi/m, i = 1,n */
+  /*   sgma = raiz(X1²+...+Xn²) */
+  /*   se x < 0 entao */
+  /*     sgma = (-1)*sgma */
+  /*   X1 = X1 + sgma */
+  /*   gama = 1/(sgma*mu1) */
+  /*   sgma = sgma*m */
+  /* fim se */
+
+  double m;
+  double x[], mu[]; /*Alloc nele... n posições*/
+  double gama, sgma
+   
+}  

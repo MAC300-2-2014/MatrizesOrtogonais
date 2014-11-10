@@ -1,0 +1,3 @@
+#include <stdio.h>
+
+typedef enum {true, false} boolean;

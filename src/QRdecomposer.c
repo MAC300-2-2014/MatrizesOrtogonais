@@ -1,4 +1,6 @@
-#include "inc/utils.h"
+#include "utils.h"
+#include "QRdecomposer.h"
+
 
 int main() {
 
@@ -27,10 +29,9 @@ double maximo(double x[], int n) {
 boolean vetorNulo(double x[], int n) {
   int i;
 
-  for (i = ; i < n; i++) 
+  for (i = 0; i < n; i++) 
     if (x[i] != 0) 
       return false;
-
 
   return true;
 }
@@ -41,8 +42,7 @@ boolean vetorNulo(double x[], int n) {
  *******************************/
 boolean normaliza(double x[], int n, int m) {
   int i;
-
-  for (i = ; i < n; i++) 
+  for (i = 0; i < n; i++) 
     x[i] /= m;
 }
 
@@ -51,20 +51,20 @@ boolean normaliza(double x[], int n, int m) {
  * vetor x.
  *******************************/
 double normaEuclideana(double x[], int n) {
-  int i;
   double norma = 0;
+  int i;
+
 
   for (i = 0; i < n; i++) 
     norma += x[i]*x[i]; 
 
-  norma = math.sqrt(norma);
+  norma = sqrt(norma);
 
   return norma;
 }
 
 /*Devolve gama?*/
 double calculaMu(double x[], int n) {
-
   
   /*Resumo*/
   /* m  = max{Xi} */
@@ -80,8 +80,9 @@ double calculaMu(double x[], int n) {
   /*   sgma = sgma*m */
   /* fim se */
 
+  int i;
   double max;
-  double gama, sgma;
+  double gama, sigma;
 
   max = maximo(x, n);
   if (max == 0)
@@ -89,15 +90,14 @@ double calculaMu(double x[], int n) {
  
   else {
     normaliza(x, n, max);
-    sgma = normaEuclideana(x);
+    sigma = normaEuclideana(x, n);
 
     if (x[0] < 0) 
-      sgma *= (-1);
+      sigma *= (-1);
 
-    x[0] += sgma;
-    gama = 1 / (sgma * x[0]);
-    /*sgma *= max -- Ver se vai deixar ou não!!!*/
-
+    x[0] += sigma;
+    gama = 1 / (sigma * x[0]);
+    /*sigma *= max -- Ver se vai deixar ou não!!!*/
 
     /*Como x[0] = 1 sempre, começa do indice 1*/
     for (i = 1; i < n; i++)
@@ -109,6 +109,17 @@ double calculaMu(double x[], int n) {
     /*ou faça a funcao receber o indice e o vetor para guardar gama*/
     return (gama * max);
   }
+
+
+  void produtoQA(double A[nmax][mmax], int index, int n) {
+    double aux[n];
+    //    for(int i = )
+  
+
+
+
+  }
+
 
 
 

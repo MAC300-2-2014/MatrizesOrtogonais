@@ -13,10 +13,9 @@ double maximo(double x[], int n) {
   int i;
   double m = x[0];
 
-  for (i = 1; i < n; i++) {
+  for (i = 1; i < n; i++) 
     if (x[i] > m) 
       m = x[i];
-  }
 
   return m;
 }
@@ -28,10 +27,10 @@ double maximo(double x[], int n) {
 boolean vetorNulo(double x[], int n) {
   int i;
 
-  for (i = ; i < n; i++) {
+  for (i = ; i < n; i++) 
     if (x[i] != 0) 
       return false;
-  }
+
 
   return true;
 }
@@ -53,17 +52,18 @@ boolean normaliza(double x[], int n, int m) {
  *******************************/
 double normaEuclideana(double x[], int n) {
   int i;
-  double norma;
+  double norma = 0;
 
-  for (i = 0; i < n; i++) {
+  for (i = 0; i < n; i++) 
     norma += x[i]*x[i]; 
-  }
+
   norma = math.sqrt(norma);
 
   return norma;
 }
 
-void calculaMu(double x[], int n) {
+/*Devolve gama?*/
+double calculaMu(double x[], int n) {
 
   
   /*Resumo*/
@@ -84,16 +84,33 @@ void calculaMu(double x[], int n) {
   double gama, sgma;
 
   max = maximo(x, n);
-  if (vetorNulo(x))
+  if (max == 0)
     gama = 0;
+ 
   else {
     normaliza(x, n, max);
     sgma = normaEuclideana(x);
+
     if (x[0] < 0) 
-      sgma = (-1) * sgma;
+      sgma *= (-1);
+
     x[0] += sgma;
     gama = 1 / (sgma * x[0]);
     /*sgma *= max -- Ver se vai deixar ou não!!!*/
+
+
+    /*Como x[0] = 1 sempre, começa do indice 1*/
+    for (i = 1; i < n; i++)
+      x[i] /= gama;
+
+    
+    x[0] = sigma;
+    
+    /*ou faça a funcao receber o indice e o vetor para guardar gama*/
+    return (gama * max);
   }
+
+
+
    
 }  

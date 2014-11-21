@@ -1,3 +1,8 @@
+void maxCol(double A[nmax][mmax], double max[mmax], int n, int m);
+void sigmaArray(double A[nmax][mmax], double sigma[mmax], int n, int m);
+void sigmaRecalc(double A[nmax][mmax], double sigma[mmax], int index, int n, int m);
+void permuta(double A[nmax][mmax], double sigma[mmax], int index,  int n, int m);
+int maxIndex(double max[mmax], int k, int m);
 void clean(double x[], int n);
 double maximo(double x[], int n);
 boolean vetorNulo(double x[], int n);

@@ -1,5 +1,4 @@
 #include "QRdecomposition.h"
-
 /*
 Ordem do algoritmo decomposicao QR com posto incompleto:
 1) Determinar o elemento de maior valor absoluto 'max' da matriz A[n][m]
@@ -103,7 +102,6 @@ void switchCol(double A[nmax][mmax], double sigma[mmax], int index1, int index2,
  * dos indices 'index' ate 'm'
  * Armazena a permutacao no vetor 'ordem'
  ***************************************/
-/*CASO ZERO AVISAR!*/
 int permuta(double A[nmax][mmax], double sigma[mmax], int ordem[nmax], int index,  int n, int m) {
   int i, j, k;
   double aux;
@@ -158,41 +156,33 @@ void clean(double x[nmax], int n) {
 
 /*Algoritmo 3.2.37 do Livro Fundamentals of Matrix Computations*/
 /*Devolve gama?*/
-
-/*
-double calculaMu(double x[], int n) {
+double calculaUMiGama(double A[nmax][mmax], double norma[nmax], double max, int index, int n, int m) {
   int i;
-  double max;
+  double x[nmax];
   double gama, sigma;
 
-  max = maximo(x, n);
-  if (max == 0)
-    gama = 0;
+  sigma = sqrt(norma[i]);
+  
+  if (sigma < epsilon) 
+    return epsilon;
  
-  else {
-    normaliza(x, n, max);
-    sigma = normaEuclideana(x, n);
-    
-    if (x[0] < 0) 
-      sigma *= (-1);
-
-    x[0] += sigma;
-    gama = 1 / (sigma * x[0]);
+  copyCol(A, x, index, n);
   
-    
+  if (x[index] < 0) 
+    sigma *= (-1);
   
-    for (i = 1; i < n; i++)
-      x[i] /= gama;
-    
-    x[0] = sigma;
-    gama *= max;
-  }
+  x[index] += sigma;
+  gama = (x[index] / sigma) * max;
+  
+  for (i = index + 1; i < n; i++)
+    x[i] /= x[index];
+  
+  pasteCol(A, x, index, n);
 
-
+  x[index] = sigma;
+  
   return gama;
-
 }
-*/
 
 
 /*******************************
@@ -282,3 +272,20 @@ void calculaQ(double A[nmax][mmax], double norma[mmax], int index, int n, int m)
   return gama;
 }
 */
+
+/*Copia a coluna da matriz A de indice index*/
+void copyCol(double A[nmax][mmax], double x[nmax], int index, int n) {
+  int i, j;
+  
+  clean(x, nmax);
+  for (i = index; i < n; i++)
+    x[i] = A[i][index];
+
+}
+/*Copia o vetor transposto x para a coluna de A do indice index*/
+void pasteCol(double A[nmax][mmax], double x[nmax], int index, int n) {
+  int i, j;
+  
+  for (i = index; i < n; i++)
+    A[i][index] = x[i];
+}

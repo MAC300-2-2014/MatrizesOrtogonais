@@ -161,7 +161,7 @@
 % ---
 %% compila o indice
 %% ---
-%\makeindex
+\makeindex
 % ---
 
 % ----
@@ -175,7 +175,7 @@
 % ----------------------------------------------------------
 % ELEMENTOS PRÉ-TEXTUAIS
 % ----------------------------------------------------------
-% \pretextual
+\pretextual
 
 % ---
 % Capa
@@ -247,11 +247,11 @@ o esperado.
 %% ---
 %
 %% ---
-%% inserir o sumario
-%% ---
-%\pdfbookmark[0]{\contentsname}{toc}
-%\tableofcontents*
-%\cleardoublepage
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
 %% ---
 %
 %
@@ -276,18 +276,18 @@ possua o menor desvio médio possível.
 
 
 
-Encontrar essa função é, na realidade, encontrar a resolução de um sistema linear sobredeterminado,
+Encontrar essa função é, na realidade, encontrar a solução de um sistema linear sobredeterminado,
 isto é, um sistema com mais equações que incógnitas, $Ax = b$, onde 
 $A \in  \mathbb{R}^{n \times m}, n \ge m \ e \ b \in \mathbb{R}^n$. Sendo $A$ a matriz que define o sistema,
 $n$ o número de equações, $m$ o número de incógnitas e $b$ os dados do problema. 
 
-O método utilizado para resolver foi o problema dos quadrados mínimos. Para tal, deve-se encontrar não a função que atravessa os pontos mas a que minimiza as distâncias entre a solução calculada e os valores observados. 
+Para analisar quão boa é essa aproximação utilizou-se o método dos quadrados mínimos. Para tal, deve-se encontrar não a função que atravessa os pontos mas a que minimiza as distâncias entre a solução calculada e os valores observados. 
 
 Neste caso, o problema consiste em encontrar $x \in \mathbb{R}^n$ para o qual $\|r\|_2$ é minimizada, onde $r =  b-Ax$ é o vetor de 
 resíduos. 
 
 Para resolver esse problema, utilizou-se o conceito de matriz ortogonal, que é uma matriz quadrada cuja
-inversa coincide com sua transposta, pois ela possui número de condição igual a 1, isto é, é bem condicionada.
+inversa coincide com sua transposta, por esta possuir número de condição igual a 1, isto é, é bem condicionada.
 Matrizes ortogonais nos permitem realizar operações com o sistema $Ax=b$ sem perder a precisão de sua solução.
 
 
@@ -299,7 +299,7 @@ Matrizes ortogonais nos permitem realizar operações com o sistema $Ax=b$ sem p
 % ----------------------------------------------------------
 % PARTE - preparação da pesquisa
 % ----------------------------------------------------------
-\part{Preparação do algoritmo}
+\part{Teoria do algoritmo}
 
 % ----------------------------------------------------------
 % Capitulo com exemplos de comandos inseridos de arquivo externo 

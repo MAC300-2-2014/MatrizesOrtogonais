@@ -27,3 +27,18 @@
 *.i*86
 *.x86_64
 *.hex
+
+#Gerados pelo LaTeX 
+*.out.ps
+*.aux
+*.idx
+*.log
+*.toc
+*.lof
+*.lot
+*.dvi
+*.bbl
+*.blg
+*.brf
+*.synctex.gz
+*.pdf

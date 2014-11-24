@@ -1,0 +1,36 @@
+\chapter{Método QR}
+
+	\section{Decomposição da matriz A}
+	Se A for uma matriz não-singular então é possível decompô-la em um produto de matrizes 
+	$QR$, onde $Q$ é ortogonal e $R$ é uma matriz triangular superior de diagonal não-nula. Esta decomposição é única e sempre existe.
+	
+	Para obter essa decomposição devemos encontrar uma sequência de $Q_i ^T$'s, $i~ =~ 1,...,m$ onde m é o número de colunas do sistema, sendo que cada uma delas transforma cada $i$-ésima coluna em zeros abaixo da $i$-ésima posição, formando assim a matriz triangular superior $R$. Tendo assim que
+	
+	\[Q_{n-1} ^TQ_{n-2} ^T \ldots Q_{1} ^T A = R\]
+	
+	Como cada $Q_i ^T$ é ortogonal, temos A = QR, onde \[Q = [Q_{n-1} ^T Q_{n-2} ^T \ldots Q_{1} ^T]^T \]\textbf{http://www.sawp.com.br/blog/?p=689}%\cite{sawp}
+	\section{Cálculo o vetor x}
+	Para resolver um sistema Ax=b podemos decompor a matriz $A$ em termos de $Q$ e $R$ como \[ A = Q{R \brack 0}\] com a matriz $R$ sendo quadrada e triangular-superior $R$ de dimensão $(n,m)$.
+	A equação toma a forma \[QTx = b\] que pode ser escrito como \[Rx=Q^Tb\]
+	Pode-se então separar a solução em dois passos:
+	\begin{enumerate}
+	\item Calcular $y = Q^Tb$
+	\item Resolver o sistema $Rx = y$
+	\end{enumerate}
+	
+	Aqui não calculou-se explicitamente as matrizes $Q$ e $R$ para dar maior eficiência ao algoritmo. A forma com que os valores necessários para o cálculo da solução são armazenados e utilizados está descrito no algoritmo para decomposição $QR$.
+	
+	\section{Reutilização do QR para qualquer b}
+	Uma vez calculada a decomposição $QR$ de uma matriz $A$, basta realizar os passos anteriores e obter novas soluções variando apenas os dados de $b$.
+
+\chapter{Método dos Mínimos Quadrados}
+
+	\section{Descrição do problema}
+	
+	\section{Resolução do sistema utilizando QR}
+
+
+\chapter{Algoritmo para decomposição QR}
+
+\section{Cálculo da Q}
+etc... [Por pseudo códigos aqui.]

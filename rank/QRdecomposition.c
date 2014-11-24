@@ -1,4 +1,5 @@
 #include "QRdecomposition.h"
+#include <math.h>
 /*
 Ordem do algoritmo decomposicao QR com posto incompleto:
 1) Determinar o elemento de maior valor absoluto 'max' da matriz A[n][m]
@@ -42,6 +43,7 @@ double maxMatriz(double A[nmax][nmax], int n, int m) {
 /***********************************************
  * Calcula e guarda sobre o vetor sigma, as normas(sigma) 
  * ao quadrado de cada coluna (orientada a linha)
+ * Retorna o elemento maximo da matriz
  ***********************************************/
 /*Guardar max no retorno*/
 double sigmaArray(double A[nmax][mmax], double sigma[mmax], int n, int m) {
@@ -67,9 +69,14 @@ double sigmaArray(double A[nmax][mmax], double sigma[mmax], int n, int m) {
  ***********************************************/
 void sigmaRecalc(double A[nmax][mmax], double sigma[mmax], int index, int n, int m) {
   int i,j;
+  printVET(sigma, m);
+  printf("index = %d\n",index);
+  printf("sigma[0] = %.3f\n",sigma[index]);
 
-  for (j = index; j < m; j++)
+  for (j = index; j < m; j++) {
     sigma[j] -= (A[index][j] * A[index][j]);
+    printf("sigma[%d] (%.3f) -= A[%d][%d] (%.3f) * A[%d][%d] (%.3f) \n",j,sigma[j],index,j,A[index][j],index,j,A[index][j]);
+  }
 }
 
 
@@ -101,6 +108,7 @@ void switchCol(double A[nmax][mmax], double sigma[mmax], int index1, int index2,
  * Permuta as colunas de A checando as normas 
  * dos indices 'index' ate 'm'
  * Armazena a permutacao no vetor 'ordem'
+ * Retorna 1 se a submatriz de A for nula 
  ***************************************/
 int permuta(double A[nmax][mmax], double sigma[mmax], int ordem[nmax], int index,  int n, int m) {
   int i, j, k;
@@ -109,7 +117,7 @@ int permuta(double A[nmax][mmax], double sigma[mmax], int ordem[nmax], int index
 
   max = maximo(sigma, m);
   if(max < epsilon) return 1;
-  
+
   k = maxIndex(sigma, index, m);
 
   ordem[index] = k;
@@ -119,6 +127,7 @@ int permuta(double A[nmax][mmax], double sigma[mmax], int ordem[nmax], int index
     return 0;
 
   switchCol(A, sigma, index, k, n);
+
   return 0;
 }
 
@@ -155,32 +164,37 @@ void clean(double x[nmax], int n) {
 
 
 /*Algoritmo 3.2.37 do Livro Fundamentals of Matrix Computations*/
-/*Devolve gama?*/
 double calculaUMiGama(double A[nmax][mmax], double norma[nmax], double max, int index, int n, int m) {
   int i;
   double x[nmax];
-  double gama, sigma;
+  double gama, sigma, aux;
 
-  sigma = sqrt(norma[i]);
-  
+  sigma = sqrt (norma[index]);
+
+  //  printf("FUNCAO CALCULA UMIGAMA: SIGMA:   %.3f\n",sigma);
+
+
   if (sigma < epsilon) 
     return epsilon;
- 
+
   copyCol(A, x, index, n);
   
   if (x[index] < 0) 
     sigma *= (-1);
   
+  //  printf("FUNCAO CALCULA UMIGAMA: VETOR x:\n");
+  //printVET(x,n);
+
   x[index] += sigma;
   gama = (x[index] / sigma) * max;
-  
-  for (i = index + 1; i < n; i++)
-    x[i] /= x[index];
-  
+
+  aux = x[index];
+  for (i = index; i < n; i++)
+    x[i] /= aux;
+
   pasteCol(A, x, index, n);
 
-  x[index] = sigma;
-  
+  A[index][index] = sigma;
   return gama;
 }
 
@@ -192,7 +206,6 @@ double calculaUMiGama(double A[nmax][mmax], double norma[nmax], double max, int 
 double maximo(double x[nmax], int n) {
   int i;
   double m = fabs(x[0]);
-
   for (i = 1; i < n; i++) 
     if (fabs(x[i]) > m) 
       m = fabs(x[i]);
@@ -201,87 +214,64 @@ double maximo(double x[nmax], int n) {
 }
 
 
-
-
 /*Algoritmo 3.2.40 do Livro Fundamentals of Matrix Computations*/
 /*index = Coluna de A a ser zerado*/
 void produtoQA(double A[nmax][mmax], double gama, int index, int n, int m) {
-  double auxT[n];
-  double aux[n];
-  
-  double vT[m];
-  int i, j, k;
+  double aux[nmax], auxT[nmax];
+  double vT[nmax];
+  int i, j;
 
-  for (i = index; i < n; i++) 
-    aux[i] = A[index][i];
+  copyCol(A, aux, index, n);
+  copyCol(A, vT, index, n);
+
+  //  printf("FUNCAO produtoQA:    GAMA: %.5f\n", gama);
+  //  printMAT(A,n,m);
+
+  //  printf("FUNCAO produtoQA:   VT\n");
+  //  printVET(vT, n);
+
+
+  vT[index] = gama;  
+  for (i = index + 1; i < n; i++)
+    vT[i] *= gama;
+
+
+  //  printf("FUNCAO produtoQA: VETOR vT\n");
+  //  printVET(vT, n);
+
 
   /*orientada a linha*/
-  /*vT (v transposta) <- vT B*/
-  clean(auxT, index);
-  for (i = 0; i < n; i++) {
-    k = aux[i] * gama;
+  /*vT <- vT B*/
+  clean(auxT, nmax);
 
-    for(j = 0; j < n; j++)
-      auxT[j] += k * A[i][j];  
-  }
-    
+  for (i = index; i < n; i++) 
+    for (j = 0; j < m; j++){
+      auxT[j] += (vT[i] * A[i][j]);
+      //printf("FUNCAO produtoQA: auxT[%d] += vT[%d] (%.3f) * A[%d][%d] (%.3f) = %.3f\n",j,i,vT[i],i,j,A[i][j], vT[i] * A[i][j]);      
+    }
+  //  printf("FUNCAO AKSODASMA===============\n");
+
+  //  printVET(aux, n);
+  // printVET(auxT, n);
+
   /*B <- B - uvT*/
   for(i = index; i < n; i++) 
     for(j = index; j < m; j++) 
       A[i][j] -= aux[i] * auxT[j];
+
+  //  printMAT(A,n,m);
+
 }
-
-
-/*Algoritmo do posto incompleto*/
-/***************************************
- * Identico a funcao calculaMu adaptada
- * para o algoritmo da decomp QR com
- * posto incompleto
- ***************************************/
-/*Calcula Q para a iteracao de numero 'n - index'*/
-/*
-void calculaQ(double A[nmax][mmax], double norma[mmax], int index, int n, int m) {
-  int i;
-  double max;
-  double gama, sigma;
-
-  sigma = sqrt(norma[index]);
-  
-  if (sigma == 0)
-    gama = 0;
- 
-  else {
-    normaliza(x, n, max);
-    sigma = normaEuclideana(x, n);
-    
-    if (x[0] < 0) 
-      sigma *= (-1);
-
-    x[0] += sigma;
-    gama = 1 / (sigma * x[0]);
-
-
-    for (i = 1; i < n; i++)
-      x[i] /= gama;
-    
-    x[0] = sigma;
-    gama *= max;
-  }
-
-
-  return gama;
-}
-*/
 
 /*Copia a coluna da matriz A de indice index*/
 void copyCol(double A[nmax][mmax], double x[nmax], int index, int n) {
   int i, j;
   
   clean(x, nmax);
-  for (i = index; i < n; i++)
+  for (i = index; i < n; i++) 
     x[i] = A[i][index];
-
 }
+
 /*Copia o vetor transposto x para a coluna de A do indice index*/
 void pasteCol(double A[nmax][mmax], double x[nmax], int index, int n) {
   int i, j;

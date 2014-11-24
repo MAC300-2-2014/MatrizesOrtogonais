@@ -4,6 +4,9 @@
   sigmaArray        ok
   switchCol         ok
   clean             ok
+  permuta           ok
+  calculaUMiGama    aparentemente ok
+  produtoQA         aparentemente ok
 */
 
 double maxMatriz(double A[nmax][nmax], int n, int m);
@@ -20,3 +23,8 @@ double maximo(double x[nmax], int n);
 
 double calculaMu(double x[], int n);
 void produtoQA(double A[nmax][mmax], double gama, int index, int n, int m);
+
+double calculaUMiGama(double A[nmax][mmax], double norma[nmax], double max, int index, int n, int m);
+
+void copyCol(double A[nmax][mmax], double x[nmax], int index, int n);
+void pasteCol(double A[nmax][mmax], double x[nmax], int index, int n);

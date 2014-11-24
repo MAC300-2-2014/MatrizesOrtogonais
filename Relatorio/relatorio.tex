@@ -1,3 +1,4 @@
+% !TeX spellcheck = en_US
 %% abtex2-modelo-relatorio-tecnico.tex, v-1.9.2 laurocesar
 %% Copyright 2012-2014 by abnTeX2 group at http://abntex2.googlecode.com/ 
 %%
@@ -60,6 +61,7 @@
 \usepackage{color}				% Controle das cores
 \usepackage{graphicx}			% Inclusão de gráficos
 \usepackage{microtype} 			% para melhorias de justificação
+\usepackage{amssymb}
 % ---
 
 % ---
@@ -106,7 +108,7 @@
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
 \titulo{Matrizes Ortogonais e o \\Problema de Quadrados Mínimos}
-\autor{Shayenne da Luz Moura}
+\autor{Florence Alyssa Sakuma Shibata \and Shayenne da Luz Moura}
 \local{São Paulo}
 \data{2014}
 \instituicao{%
@@ -188,67 +190,7 @@
 %\imprimirfolhaderosto*
 % ---
 
-% ---
-% Anverso da folha de rosto:
-% ---
-%
-%{
-%\ABNTEXchapterfont
-%
-%\vspace*{\fill}
-%
-%Conforme a ABNT NBR 10719:2011, seção 4.2.1.1.1, o anverso da folha de rosto
-%deve conter:
-%
-%\begin{alineas}
-%  \item nome do órgão ou entidade responsável que solicitou ou gerou o
-%   relatório; 
-%  \item título do projeto, programa ou plano que o relatório está relacionado;
-%  \item título do relatório;
-%  \item subtítulo, se houver, deve ser precedido de dois pontos, evidenciando a
-%   sua subordinação ao título. O relatório em vários volumes deve ter um título
-%   geral. Além deste, cada volume pode ter um título específico; 
-%  \item número do volume, se houver mais de um, deve constar em cada folha de
-%   rosto a especificação do respectivo volume, em algarismo arábico; 
-%  \item código de identificação, se houver, recomenda-se que seja formado
-%   pela sigla da instituição, indicação da categoria do relatório, data,
-%   indicação do assunto e número sequencial do relatório na série; 
-%  \item classificação de segurança. Todos os órgãos, privados ou públicos, que
-%   desenvolvam pesquisa de interesse nacional de conteúdo sigiloso, devem
-%    informar a classificação adequada, conforme a legislação em vigor; 
-%  \item nome do autor ou autor-entidade. O título e a qualificação ou a função
-%   do autor podem ser incluídos, pois servem para indicar sua autoridade no
-%   assunto. Caso a instituição que solicitou o relatório seja a mesma que o
-%   gerou, suprime-se o nome da instituição no campo de autoria; 
-%  \item local (cidade) da instituição responsável e/ou solicitante; NOTA: No
-%   caso de cidades homônimas, recomenda-se o acréscimo da sigla da unidade da
-%   federação.
-%  \item ano de publicação, de acordo com o calendário universal (gregoriano),
-%  deve ser apresentado em algarismos arábicos.
-%\end{alineas}
-%
-%\vspace*{\fill}
-%}
-%
-%% ---
-%% Agradecimentos
-%% ---
-%\begin{agradecimentos}
-%O agradecimento principal é direcionado a Youssef Cherem, autor do
-%\nameref{formulado-identificacao} (\autopageref{formulado-identificacao}).
-%
-%Os agradecimentos especiais são direcionados ao Centro de Pesquisa em
-%Arquitetura da Informação\footnote{\url{http://www.cpai.unb.br/}} da Universidade de
-%Brasília (CPAI), ao grupo de usuários
-%\emph{latex-br}\footnote{\url{http://groups.google.com/group/latex-br}} e aos
-%novos voluntários do grupo
-%\emph{\abnTeX}\footnote{\url{http://groups.google.com/group/abntex2} e
-%\url{http://abntex2.googlecode.com/}}~que contribuíram e que ainda
-%contribuirão para a evolução do abn\TeX.
-%
-%\end{agradecimentos}
-%% ---
-%
+
 % ---
 % RESUMO
 % ---
@@ -324,52 +266,40 @@ o esperado.
 \chapter*[Introdução]{Introdução}
 \addcontentsline{toc}{chapter}{Introdução}
 
-Em investigações científicas é comum buscar relações entre dados. Normalmente tem-se 
+Em investigações científicas é comum buscar relações entre dados pontuais. Normalmente tem-se 
 muitos pontos coletados em experimento e há sempre uma razão teórica para acreditar 
-que esses pontos são atravessados por uma função.
+que esses pontos são aproximados por uma função.
 
-Como é praticamente impossível que uma função atravesse todos os pontos de dados
-é interessante encontrar uma função que tenha a uma distancia aceitável, ou seja, que
-seja confiável em sua solução.
-
-Encontrar a função é, por fim, encontrar a resolução de um sistema linear sobredeterminado,
-isto é, um sistema com mais equações que incógnitas, $Ax = b$, onde $A\in |R^{n\times m}, n \ge m \ e \ b \in \Re |R^n$.
-
-O problema dos mínimos quadrados é encontrar $x \in R^n$ para o qual $||r||_2$ é minimizada, onde $r =  b-Ax$ é o vetor de 
-resíduos. Para resolver esse problema, utilizou-se o conceito de matrizes ortogonais.
+Como é praticamente impossível que uma função atravesse exatamente todos os pontos de dados
+é interessante encontrar uma função que tenha a uma distância aceitável, ou seja, que
+possua o menor desvio médio possível.
 
 
 
-A resolução de sistemas lineares é um problema constante em diversas áreas.
-Para atingir um resultado satisfatório e confiável é necessário entender 
-como são feitas as operações e até que pontos erros são admitidos.
+Encontrar essa função é, na realidade, encontrar a resolução de um sistema linear sobredeterminado,
+isto é, um sistema com mais equações que incógnitas, $Ax = b$, onde 
+$A \in  \mathbb{R}^{n \times m}, n \ge m \ e \ b \in \mathbb{R}^n$. Sendo $A$ a matriz que define o sistema,
+$n$ o número de equações, $m$ o número de incógnitas e $b$ os dados do problema. 
 
-O método dos Quadrados Mínimos propicia a verificação de quão grande é o erro
-cometido ao se calcular uma resposta para um sistema linear, além de permitir reduzí-lo
-em muitos casos. ????
+O método utilizado para resolver foi o problema dos quadrados mínimos. Para tal, deve-se encontrar não a função que atravessa os pontos mas a que minimiza as distâncias entre a solução calculada e os valores observados. 
 
-Nesta implementação, o método de resolução chama-se QR com permutação. É ISSO MESMO???
+Neste caso, o problema consiste em encontrar $x \in \mathbb{R}^n$ para o qual $\|r\|_2$ é minimizada, onde $r =  b-Ax$ é o vetor de 
+resíduos. 
+
+Para resolver esse problema, utilizou-se o conceito de matriz ortogonal, que é uma matriz quadrada cuja
+inversa coincide com sua transposta, pois ela possui número de condição igual a 1, isto é, é bem condicionada.
+Matrizes ortogonais nos permitem realizar operações com o sistema $Ax=b$ sem perder a precisão de sua solução.
 
 
-{ CÒPIA
 
-O método dos Quadrados Mínimos Lineares é uma das técnicas de aproximação
-mais populares. Isto se deve à sua simplicidade e ao fato de que ao aplicarmos este
-método a, por exemplo, medidas físicas, reduzimos o erro associado às medidas, pois,
-geralmente, o número de pontos que serão aproximados pela função aproximante é
-muito maior que o número de subfunções que a compõem. Uma de suas grandes
-aplicações é na deformação de imagens [3]. Este problema é amplamente estudado
-devido a seu uso, por exemplo, em imageamente médico [5] e animação [2].
-A aproximação por quadrados mínimos envolve a minimização de uma função
-que é a soma das distâncias dos pontos a serem aproximados aos valores das medidas
-nos pontos.
 
-}
+
+
 
 % ----------------------------------------------------------
 % PARTE - preparação da pesquisa
 % ----------------------------------------------------------
-\part{Preparação do relatório}
+\part{Preparação do algoritmo}
 
 % ----------------------------------------------------------
 % Capitulo com exemplos de comandos inseridos de arquivo externo 
@@ -482,62 +412,5 @@ parturient montes nascetur ridiculus mus}
 
 \end{anexosenv}
 %
-%%---------------------------------------------------------------------
-%% INDICE REMISSIVO
-%%---------------------------------------------------------------------
-%
-%\phantompart
-%
-%\printindex
-%
-%%---------------------------------------------------------------------
-%% Formulário de Identificação (opcional)
-%%---------------------------------------------------------------------
-%\chapter*[Formulário de Identificação]{Formulário de Identificação}
-%\addcontentsline{toc}{chapter}{Exemplo de Formulário de Identificação}
-%\label{formulado-identificacao}
-%
-%Exemplo de Formulário de Identificação, compatível com o Anexo A (informativo)
-%da ABNT NBR 10719:2011. Este formulário não é um anexo. Conforme definido na
-%norma, ele é o último elemento pós-textual e opcional do relatório.
-%
-%\bigskip
-%
-%\begin{tabular}{|p{9cm}|p{5cm}|}
-%\hline
-%\multicolumn{2}{|c|}{\textbf{\large Dados do Relatório Técnico e/ou científico}}\\
-%\hline
-%\multirow{4}{10cm}[24pt]{Título e subtítulo}& Classificação de segurança\\
-%                   & \\
-%                   \cline{2-2}
-%                   & No.\\
-%                   & \\
-%				
-%\hline
-%Tipo de relatório & Data\\
-%\hline
-%Título do projeto/programa/plano & No.\\
-%\hline
-%\multicolumn{2}{|l|}{Autor(es)} \\
-%\hline
-%\multicolumn{2}{|l|}{Instituição executora e endereço completo} \\
-%\hline
-%\multicolumn{2}{|l|}{Instituição patrocinadora e endereço completo} \\
-%\hline
-%\multicolumn{2}{|l|}{Resumo}\\[3cm]
-%\hline
-%\multicolumn{2}{|l|}{Palavras-chave/descritores}\\
-%\hline
-%\multicolumn{2}{|l|}{
-%Edição \hfill No. de páginas \hfill No. do volume \hfill Nº de classificação \phantom{XXXX}} \\
-%\hline
-%\multicolumn{2}{|l|}{
-%ISSN \hfill \hfill Tiragem \hfill Preço \phantom{XXXXXXXX}} \\
-%\hline
-%\multicolumn{2}{|l|}{Distribuidor} \\
-%\hline
-%\multicolumn{2}{|l|}{Observações/notas}\\[3cm]
-%\hline
-%\end{tabular}
 
 \end{document}

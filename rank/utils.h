@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <math.h>
 
+#define TRUE 1
 #define nmax 1000
 #define mmax 1000
-#define epsilon 1E-10
+#define epsilon 1E-5
 
 void input(int argc, char *argv[], double A[nmax][nmax], double b[nmax], int *line, int *col);
 void printMAT(double mat[nmax][nmax], int n, int m);

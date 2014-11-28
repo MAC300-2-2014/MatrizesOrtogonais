@@ -68,15 +68,11 @@ double sigmaArray(double A[nmax][mmax], double sigma[mmax], int n, int m) {
  * os elementos de A da linha index (orientada a linha)
  ***********************************************/
 void sigmaRecalc(double A[nmax][mmax], double sigma[mmax], int index, int n, int m) {
-  int i,j;
-  printVET(sigma, m);
-  printf("index = %d\n",index);
-  printf("sigma[0] = %.3f\n",sigma[index]);
+  int j;
 
-  for (j = index; j < m; j++) {
+  for (j = index + 1; j < m; j++)
     sigma[j] -= (A[index][j] * A[index][j]);
-    printf("sigma[%d] (%.3f) -= A[%d][%d] (%.3f) * A[%d][%d] (%.3f) \n",j,sigma[j],index,j,A[index][j],index,j,A[index][j]);
-  }
+
 }
 
 
@@ -116,17 +112,18 @@ int permuta(double A[nmax][mmax], double sigma[mmax], int ordem[nmax], int index
   double max;
 
   max = maximo(sigma, m);
+  ordem[index] = index;
+
   if(max < epsilon) return 1;
 
   k = maxIndex(sigma, index, m);
-
-  ordem[index] = k;
 
   /*a coluna de maior norma se encontra no lugar certo*/
   if (k == index)
     return 0;
 
   switchCol(A, sigma, index, k, n);
+  ordem[index] = k;
 
   return 0;
 }
@@ -164,37 +161,32 @@ void clean(double x[nmax], int n) {
 
 
 /*Algoritmo 3.2.37 do Livro Fundamentals of Matrix Computations*/
-double calculaUMiGama(double A[nmax][mmax], double norma[nmax], double max, int index, int n, int m) {
+double calculaUMiGama(double A[nmax][mmax], double norma[nmax], double u[nmax], double max, int index, int n, int m) {
   int i;
   double x[nmax];
   double gama, sigma, aux;
 
   sigma = sqrt (norma[index]);
 
-  //  printf("FUNCAO CALCULA UMIGAMA: SIGMA:   %.3f\n",sigma);
-
-
   if (sigma < epsilon) 
     return epsilon;
 
-  copyCol(A, x, index, n);
+  copyCol(A, u, index, n);
   
-  if (x[index] < 0) 
+  if (u[index] < 0) 
     sigma *= (-1);
   
-  //  printf("FUNCAO CALCULA UMIGAMA: VETOR x:\n");
-  //printVET(x,n);
+  u[index] += sigma;
 
-  x[index] += sigma;
-  gama = (x[index] / sigma) * max;
+  gama = (u[index] / sigma);// * max;
 
-  aux = x[index];
+  aux = u[index];
   for (i = index; i < n; i++)
-    x[i] /= aux;
+    u[i] /= aux;
 
-  pasteCol(A, x, index, n);
+  if (sigma > 0)
+    sigma *= -1;
 
-  A[index][index] = sigma;
   return gama;
 }
 
@@ -216,56 +208,48 @@ double maximo(double x[nmax], int n) {
 
 /*Algoritmo 3.2.40 do Livro Fundamentals of Matrix Computations*/
 /*index = Coluna de A a ser zerado*/
-void produtoQA(double A[nmax][mmax], double gama, int index, int n, int m) {
+void produtoQA(double A[nmax][mmax], double b[nmax], double u[nmax], double gama, int index, int n, int m) {
   double aux[nmax], auxT[nmax];
   double vT[nmax];
+  double bLinha = 0;
   int i, j;
 
-  copyCol(A, aux, index, n);
-  copyCol(A, vT, index, n);
-
-  //  printf("FUNCAO produtoQA:    GAMA: %.5f\n", gama);
-  //  printMAT(A,n,m);
-
-  //  printf("FUNCAO produtoQA:   VT\n");
-  //  printVET(vT, n);
-
-
-  vT[index] = gama;  
-  for (i = index + 1; i < n; i++)
+  copyU(u, vT, n);
+  
+  for (i = index; i < n; i++)
     vT[i] *= gama;
 
-
-  //  printf("FUNCAO produtoQA: VETOR vT\n");
-  //  printVET(vT, n);
-
-
+  clean(auxT, nmax);
+  
   /*orientada a linha*/
   /*vT <- vT B*/
-  clean(auxT, nmax);
-
   for (i = index; i < n; i++) 
-    for (j = 0; j < m; j++){
+    for (j = index; j < m; j++)
       auxT[j] += (vT[i] * A[i][j]);
-      //printf("FUNCAO produtoQA: auxT[%d] += vT[%d] (%.3f) * A[%d][%d] (%.3f) = %.3f\n",j,i,vT[i],i,j,A[i][j], vT[i] * A[i][j]);      
-    }
-  //  printf("FUNCAO AKSODASMA===============\n");
 
-  //  printVET(aux, n);
-  // printVET(auxT, n);
+
+  /* vT * b */
+  for (i = index; i < n; i++)
+    bLinha += (vT[i] * b[i]);
+
 
   /*B <- B - uvT*/
-  for(i = index; i < n; i++) 
-    for(j = index; j < m; j++) 
-      A[i][j] -= aux[i] * auxT[j];
+  for (i = index; i < n; i++) 
+    for (j = index; j < m; j++) 
+      A[i][j] -= u[i] * auxT[j];
 
-  //  printMAT(A,n,m);
 
+  for (i = index; i < n; i++)
+    b[i] -= (u[i] * bLinha);
+
+  /*Armazena u em A*/
+  pasteCol(A, u, index, n);
 }
+
 
 /*Copia a coluna da matriz A de indice index*/
 void copyCol(double A[nmax][mmax], double x[nmax], int index, int n) {
-  int i, j;
+  int i;
   
   clean(x, nmax);
   for (i = index; i < n; i++) 
@@ -274,8 +258,57 @@ void copyCol(double A[nmax][mmax], double x[nmax], int index, int n) {
 
 /*Copia o vetor transposto x para a coluna de A do indice index*/
 void pasteCol(double A[nmax][mmax], double x[nmax], int index, int n) {
-  int i, j;
+  int i;
   
-  for (i = index; i < n; i++)
+  for (i = index + 1; i < n; i++)
     A[i][index] = x[i];
+}
+
+void copyU(double u[nmax], double v[nmax], int n) {
+  int i;
+
+  clean(v, n);
+
+  for (i = 0; i < n; i++)
+    v[i] = u[i];
+}
+
+
+void backSubs(double A[nmax][mmax], double b[nmax], int rank) {
+  int j, k;
+
+  for (j = rank; j >= 0; j--) {
+    b[j] /= A[j][j];
+    
+    for (k = j - 1; k >= 0; k--)
+      b[k] -= (A[k][j] * b[j]);
+  }
+}
+
+void reorder(double b[nmax], int permutacao[nmax], double max, int rank){
+  double aux;
+  int i;
+
+  rank -= 1;
+
+  for (i = 0; i <= rank; i++)
+    b[i] /= max;
+
+  for (i = rank; i >= 0; i--) 
+    if (i != permutacao[i]) {
+      aux = b[permutacao[i]];
+      b[permutacao[i]] = b[i];
+      b[i] = aux;
+    }
+}
+
+
+void printResult(double b[nmax], int rank) {
+  int i;
+
+  printf("\nRESULTADO: \n");
+
+  for (i = 0; i < rank; i++)
+    printf("x%d = %.5f \n", i, b[i]);
+
 }

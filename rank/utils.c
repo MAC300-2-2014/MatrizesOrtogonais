@@ -34,7 +34,7 @@ void input(int argc, char *argv[], double A[nmax][nmax], double b[nmax], int *li
   /*-----------------------------ENTRADA MATRIZ------------------------------------*/
   /*-------------------------------------------------------------------------------*/
   int k = fgetc(input);    
-  for(r = 0; r < (n*m);) {
+  for(r = 0; r < (n * m);) {
 
     if (('0' <= k) && (k <= '9')) {
       char linha[nmax];
@@ -74,7 +74,7 @@ void input(int argc, char *argv[], double A[nmax][nmax], double b[nmax], int *li
   /*-------------------------------ENTRADA VETOR------------------------------------------*/ 
   /*--------------------------------------------------------------------------------------*/
 
-  for (r = 0; r < m;) {
+  for (r = 0; r < n;) {
     if (('0' <= k) && (k <= '9')) {
       int i;
       char val[nmax];
@@ -123,7 +123,7 @@ void printMAT(double mat[nmax][nmax], int n, int m) {
 
   for (i = 0; i < n; i++) {
     for (j = 0; j< m; j++) 
-      printf("%.3f  ",mat[i][j]);
+      printf("%.7f  ",mat[i][j]);
     printf("\n");
   }
   printf("\n");

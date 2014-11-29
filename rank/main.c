@@ -29,8 +29,6 @@ int main(int argc, char* argv[]) {
   for (rank = 0; rank < m ; rank++) {
     stop = permuta(A, sigma, permutacao, rank, n, m);    
 
-    printMAT(A, n , m);
-
     if (stop == TRUE)      break;
 
     gama = calculaUSigmaGama(A, sigma, u, max, rank, n, m);

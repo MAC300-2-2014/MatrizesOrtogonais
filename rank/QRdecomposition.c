@@ -343,22 +343,35 @@ void solution(double A[nmax][mmax], double b[nmax], int permutacao[nmax], double
     printf("x%d = %.5f \n", i, b[i]);
   printf("\n\n");
 
-  residuo(b, rank, n);
+  residuo(A, b, rank, n, m);
 }
 
 
 /***************************************
  * Calcula o residuo 
  ***************************************/
-void residuo(double b[nmax], int rank, int n) {
-  double res = 0;
-  int i;
-  
-  for (i = rank; i < n; i++) 
-    res += (b[i] * b[i]);
+void residuo(double A[nmax][mmax], double b[nmax], int rank, int n, int m) {
+  double res1, res2;
+  double aux[nmax];
+  int i, j;
 
-  res = sqrt(res);
-  printf("Residuo: = %.5f \n", res);
+  clean(aux, nmax);
+  res1 = res2 = 0;  
+
+  for (i = rank; i < n; i++) 
+    res1 += (b[i] * b[i]);
+  res1 = sqrt(res1);
+
+  for (i = 0; i < rank; i++)
+    for (j = i; j < rank; j++)
+      aux[i] += (A[i][j] * b[j]);
+
+  for (i = 0; i < rank; i++)
+    res2 += (aux[i] * aux[i]);
+
+  res2 = sqrt(res2);
+
+  printf("Residuo: = %.5f \n", res1 + res2);
 }
 
 

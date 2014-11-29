@@ -16,5 +16,5 @@ void copyU(double u[nmax], double v[nmax], int n);
 void backSubs(double A[nmax][mmax], double b[nmax], int rank);
 void reorder(double b[nmax], int permutacao[nmax], double max, int rank);
 void printResult(double b[nmax], int rank);
-void residuo(double b[nmax], int rank, int n);
+void residuo(double A[nmax][mmax], double b[nmax], int rank, int n, int m);
 void solution(double A[nmax][mmax], double b[nmax], int permutacao[nmax], double max, int rank, int n, int m);

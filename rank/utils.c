@@ -99,7 +99,7 @@ void input(int argc, char *argv[], double A[nmax][nmax], double b[nmax], int *li
     else
       k = fgetc(input);    
   }
-  printf("Leitura completa!\n");
+  printf("Leitura completa!\n\n");
   fclose(input);
 }
 
@@ -121,6 +121,7 @@ void use(int argc) {
 void printMAT(double mat[nmax][nmax], int n, int m) {
   int i, j;
 
+  printf("MATRIZ: \n");
   for (i = 0; i < n; i++) {
     for (j = 0; j< m; j++) 
       printf("%.7f  ",mat[i][j]);
@@ -131,6 +132,7 @@ void printMAT(double mat[nmax][nmax], int n, int m) {
 
 void printVET(double vet[mmax], int n) {
   int i;
+  printf("Vetor: \n");
   for (i = 0; i < n; i++)
     printf("%.3f  \n", vet[i]);
   printf("\n");

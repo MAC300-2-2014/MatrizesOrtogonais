@@ -1,0 +1,7 @@
+plot '../rank/dados.dat' using 1:2
+plot '../rank/dados.dat' using 1:2 title "Pontos"
+replot x**5-7*x**2+5*x**3-3*x**2+2*x-1
+set title "Pontos e funcao base"
+replot
+set key outside
+replot

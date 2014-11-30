@@ -5,6 +5,140 @@
 
 
 \chapter{Problema dos quadrados mínimos}
+Inicialmente foi tomado o polinômio $x^5-7x^4+5x^3-3x^2+2x-1$ e sorteados
+70 pontos para servirem como  dados de entrada e foram calculadas as funções que
+melhor aproximariam esses pontos.
+As funções soluções foram encontradas em diferentes graus. 
 
+Após, os dados foram perturbados em 15\% e foram calculadas novas
+soluções. Estas funçoes e suas características de aproximação estão descritas 
+a seguir.
+
+\section{Dados iniciais}
+Os pontos sorteados e a função caracterizadas pelo polinômio $x^5~-~7x^4~+~5x^3~-~3x^2~+~2x~-~1$
+estão plotados abaixo.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{funcbase}
+\end{figure}
+
+Os pontos foram usados para buscar funções que os atravessassem reduzindo o resíduo.
+A partir dessas soluções, os dados foram perturbados e suas novas funções calculadas.
+
+
+
+\newpage
+\section{Solução 2º grau}
+
+Ao buscar uma função de grau 2 para aproximar os pontos encontrou-se os seguintes 
+coeficientes:
+
+\(x_0 = -3.74052 ~$e$~  x_1 = 5.87079 \)
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{sol2grau}
+\end{figure}
+
+Ao perturbar os dados de entrada em 15\%, o programa calculou as funções 
+com resíduos 80.79981 para perturbação em $b$ e 88.55303 para perturbação em $A$ e $b$.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{sol2grau_var}
+\end{figure}
+
+
+\newpage
+\section{Solução 3º grau}
+
+Ao buscar uma função mônica de grau 3 para aproximar os pontos encontrou-se os seguintes 
+coeficientes:
+
+\(x_0 = -0.39367  ,~  x_1 = 5.45203  ~$e$~ x_2 = -9.03908 \)
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{sol3grau}
+\end{figure}
+
+Ao perturbar os dados de entrada em 15\%, o programa calculou as funções 
+com resíduos 69.37743  para perturbação em $b$ e 68.57657 para perturbação em $A$ e $b$.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{sol3grau_var}
+\end{figure}
+
+\newpage
+\section{Solução 4º grau}
+
+Ao buscar uma função mônica de grau 4 para aproximar os pontos encontrou-se os seguintes 
+coeficientes:
+\(x_0 = -0.34728 ,~  x_1 = 1.25949,~ x_2 =  -8.95480 ~$e$~ x_3 = 6.95427 \)
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{sol4grau}
+\end{figure}
+Ao perturbar os dados de entrada em 15\%, o programa calculou as funções 
+com resíduos 64.67217 para perturbação em $b$ e 56.54760  para perturbação em $A$ e $b$.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{sol4grau_var}
+\end{figure}
+
+\newpage
+\section{Solução 5º grau}
+
+Ao buscar uma função mônica de grau 5 para aproximar os pontos encontrou-se os seguintes 
+coeficientes:
+
+\(x_0 = -0.99223,~    x_1 = 1.73653,~x_2 = -2.98373,~ x_3 = 6.13233 ~$e$~ x_4 =  -7.05190 \)
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{sol5grau}
+\end{figure}
+Ao perturbar os dados de entrada em 15\%, o programa calculou as funções 
+com resíduos 61.44919  para perturbação em $b$ e 47.96817 para perturbação em $A$ e $b$.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{sol5grau_var}
+\end{figure}
 
 \chapter{Eficiência e tolerancia a falhas}
+
+
+
+GRAU 4
+SOLUCAO: 
+x0 = -0.27643 
+x1 = 1.77751 
+x2 = -10.16380 
+x3 = 7.05937 
+Residuo: = 
+
+GRAU 3
+SOLUCAO: 
+x0 = -0.47817 
+x1 = 6.33740 
+x2 = -10.41216 
+Residuo: = 
+
+
+
+=======================================================================
+                      PERTURBACAO EM A E B
+=======================================================================
+
+
+
+
+GRAU 3
+SOLUCAO: 
+x0 = -0.00818 
+x1 = 6.37680 
+x2 = -11.28197 
+Residuo: = 
+

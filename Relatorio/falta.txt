@@ -1,0 +1,14 @@
+O que falta no relatório: 14:25
+
+Completar descrição minimos quadrados
+Resolução do sistema utilizando QR
+Pseudocódigo
+
+Como foi feito o teste posto conmpleto e incompleto e entrada inconsistente
+Completar descrição do teste de perturbação
+
+Como ficou a solução de posto completo e incompleto
+
+Como foi testada a eficiencia e a tolerancia a falhas (entrada, rapidez)
+
+Bibliografia

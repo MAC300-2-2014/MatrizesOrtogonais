@@ -2,6 +2,32 @@
 
 
 \chapter{Resolução de sistema com posto incompleto}
+Para o teste do posto incompleto, foi gerado Ax = b onde:
+(arquivo postoincompleto.txt)
+
+A =         1.0000000   0.0000000   1.0000000  
+            2.0000000   5.0000000   2.0000000  
+      	   -1.0000000  -5.0000000  -1.0000000  
+       	   -1.0000000   0.0000000  -1.0000000 
+
+b =    10.000  
+  	   45.000  
+	  -35.000  
+	  -10.000  
+
+com valores pre-determinados x = 6
+    	    		         5
+			         4
+
+Note que a terceira e a quarta linha sao combinacoes lineares da primeira e segunda linha.
+
+Enviando este arquivo para o programa, temos como resultado:
+x0 = 10.00000 
+x1 = 5.00000 
+Residuo: = 16.44817 
+
+Tem-se para as solucoes geradas do programa, o mesmo resultado b. E razoavel, 
+uma vez que a matriz A e singular. 
 
 
 \chapter{Problema dos quadrados mínimos}
@@ -15,7 +41,7 @@ soluções. Estas funçoes e suas características de aproximação estão descr
 a seguir.
 
 \section{Dados iniciais}
-Os pontos sorteados e a função caracterizadas pelo polinômio $x^5~-~7x^4~+~5x^3~-~3x^2~+~2x~-~1$
+Os pontos sorteados e a função caracterizadas pelo polinômio \[x^5~-~7x^4~+~5x^3~-~3x^2~+~2x~-~1\]
 estão plotados abaixo.
 
 \begin{figure}[h]
@@ -108,37 +134,4 @@ com resíduos 61.44919  para perturbação em $b$ e 47.96817 para perturbação 
 \end{figure}
 
 \chapter{Eficiência e tolerancia a falhas}
-
-
-
-GRAU 4
-SOLUCAO: 
-x0 = -0.27643 
-x1 = 1.77751 
-x2 = -10.16380 
-x3 = 7.05937 
-Residuo: = 
-
-GRAU 3
-SOLUCAO: 
-x0 = -0.47817 
-x1 = 6.33740 
-x2 = -10.41216 
-Residuo: = 
-
-
-
-=======================================================================
-                      PERTURBACAO EM A E B
-=======================================================================
-
-
-
-
-GRAU 3
-SOLUCAO: 
-x0 = -0.00818 
-x1 = 6.37680 
-x2 = -11.28197 
-Residuo: = 
 

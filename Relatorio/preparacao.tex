@@ -23,15 +23,29 @@
 	\section{Reutilização do QR para qualquer b}
 	Uma vez calculada a decomposição $QR$ de uma matriz $A$, basta realizar os passos anteriores e obter novas soluções variando apenas os dados de $b$.
 
-\chapter{Método dos Mínimos Quadrados}
+	\begin{enumerate}
+	\item Calcular $y = Q^Tb$
+	\item Resolver o sistema $Rx = y$
+	\end{enumerate}
+	
+	Dessa forma, pode-se reaproveitar todo o processamento das matrizes $QR$ e reduzir o tempo de resolução do algoritmo
+	a apenas o cálculo de um produto matriz vetor e uma solução de matriz triangular superior.
+	Caso não houvesse esse reaproveitamento, a cada novo vetor de dados $b$ para uma mesma matriz $A$ seriam necessários todos os cálculos para decomposição, o que levaria muito processamento desnecessário.
+\chapter{Método dos Quadrados Mínimos}
 
-	\section{Descrição do problema}
+	\section{Descrição}
+	O Método dos Quadrados Mínimos é uma técnica de otimização matemática que procura encontrar o melhor ajuste para um 
+	conjunto de dados tentando minimizar a soma dos quadrados das diferenças entre o valor estimado e os dados observados.
+	Tais diferenças são chamadas resíduos.
+	
+	
+	Consiste em um estimador que minimiza a soma dos quadrados dos resíduos, de forma a maximizar o grau de ajuste do modelo aos dados observados.\cite{wikipedia}
 	
 	\section{Resolução do sistema utilizando QR}
 
 
 \chapter{Algoritmo para decomposição QR}
-Por questão da otimização de código e eficiência de cálculos, a matriz $Q$ é representada em forma $Q = (I - \gamma uu^T)$. A prova de que a matriz $Q$ pode ser escrita nesta forma está desenvolvida em \textbf{WATIKNS}%\citep{watikns}
+Por questão da otimização de código e eficiência de cálculos, a matriz $Q$ é representada em forma $Q = (I - \gamma uu^T)$. A prova de que a matriz $Q$ pode ser escrita nesta forma está desenvolvida em \cite{watkins}.
 
 \section{Cálculo da Q}
 	Dado um $x \in \mathbb{R}^n$, para calcular $\tau$, $\gamma$, e $u$ tais que $Q = (I - \gamma uu^T)$ é um refletor para o qual $Qx = [-\tau 0 \ldots 0]^T$ basta executar o algoritmo a seguir:
@@ -57,3 +71,5 @@ Por questão da otimização de código e eficiência de cálculos, a matriz $Q$
 	\[\beta \leftarrow \]
 	\[\]
 etc... [Por pseudo códigos aqui.]
+
+

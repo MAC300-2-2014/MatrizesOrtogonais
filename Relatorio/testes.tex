@@ -1,4 +1,4 @@
-\chapter{Resolução de sistemas}
+\chapter{Testes de eficiência do algoritmo}
 Aqui estão descritos os testes do algoritmo de acordo com a matriz $A$ dada.
 
 \section{Posto completo}
@@ -13,13 +13,14 @@ o cálculo da solução e seu resíduo em quadrados mínimos.
 
 A saída do programa foi a seguinte:
 
-\chapter{Entrada consistente}
+\section{Entrada consistente}
 A inconsistência da entrada pode modificar e até mesmo anular os resultados
 obtidos através do algoritmos. Por isso, é necessário que o mesmo possua 
 métodos para impedir que dados inconsistentes sejam calculados, tornando
 a solução mais confiável e o algoritmo eficaz.
 
-\chapter{Efeitos da perturbação}
+
+\chapter{Efeitos da perturbação em diferentes funções}
 Os dados raramente são exatos ao serem representados no computador, até mesmo na 
 coleta destes podem haver erros de aproximação e medida que podem interferir no
 resultado esperado do sistema.
@@ -27,16 +28,20 @@ Agora será descrito o que ocorre ao perturbar os valores das entradas e
 comparar as soluções anteriores e o quanto isso influencia no cálculo das 
 soluções encontradas.
 
-
-\section{Nos valores de A}
+\section{Diminuir ou aumentar o grau do polinômio}
+Soluções com diferentes graus polinomiais podem aproximar de forma diferente
+os dados do problema.
+Os graus em que foram testados o algoritmo foram 2, 3, 4 e 5.
+A partir destas foram feitas perturbações nos dados para comparar os resultados.
 
 \section{Nos valores de b}
-
+Os dados do vetor de entrada b foram perturbados em 15\% e foram mantidos os
+valores de A.
+A compararação dos resultados foram feitas de acordo com o grau do polinômio. 
 \section{Nos valores de A e b}
 
-\section{No resíduo dos quadrados mínimos}
-
-\chapter{Diminuir ou aumentar o grau do polinômio}
+Os dados do vetor de entrada de A e b foram perturbados em 15\%.
+A compararação dos resultados foram feitas de acordo com o grau do polinômio.
 
 \chapter{Base que estabiliza a matriz}
 

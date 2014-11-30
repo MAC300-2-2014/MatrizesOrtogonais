@@ -2,32 +2,46 @@
 
 
 \chapter{Resolução de sistema com posto incompleto}
-Para o teste do posto incompleto, foi gerado Ax = b onde:
-(arquivo postoincompleto.txt)
+Para o teste do posto incompleto, foi gerado $Ax = b$ onde:
 
-A =         1.0000000   0.0000000   1.0000000  
-            2.0000000   5.0000000   2.0000000  
-      	   -1.0000000  -5.0000000  -1.0000000  
-       	   -1.0000000   0.0000000  -1.0000000 
 
-b =    10.000  
-  	   45.000  
-	  -35.000  
-	  -10.000  
+\[
+A =
+\left(
+\begin{array}{ccc}
+	1.0000000 & 0.0000000 & 1.0000000\\
+	2.0000000 & 5.0000000 & 2.0000000\\
+	-1.0000000 & -5.0000000 & -1.0000000\\
+	-1.0000000 & 0.0000000 & -1.0000000\\
+\end{array}
+\right)
+\]
+\[
+b =
+\left(
+\begin{array}{c}
+10.000  \\
+45.000  \\
+-35.000  \\
+-10.000  \\
+\end{array}\right)    
+\]
+com valores pré-determinados\[ x = 
+\left(
+\begin{array}{c}
+6\\
+5\\
+4\\
+\end{array}
+\right)\]
 
-com valores pre-determinados x = 6
-    	    		         5
-			         4
-
-Note que a terceira e a quarta linha sao combinacoes lineares da primeira e segunda linha.
+Note que a terceira e a quarta linha sao combinações lineares da primeira e segunda linha.
 
 Enviando este arquivo para o programa, temos como resultado:
-x0 = 10.00000 
-x1 = 5.00000 
-Residuo: = 16.44817 
+\(x_0 = 10.00000 $e$ x_1 = 5.00000 \) com residuo = 16.44817 .
 
-Tem-se para as solucoes geradas do programa, o mesmo resultado b. E razoavel, 
-uma vez que a matriz A e singular. 
+Tem-se para as soluções geradas do programa, o mesmo resultado $b$. É razoavel, 
+uma vez que a matriz $A$ e singular. 
 
 
 \chapter{Problema dos quadrados mínimos}
@@ -133,5 +147,5 @@ com resíduos 61.44919  para perturbação em $b$ e 47.96817 para perturbação 
 \includegraphics[scale=0.7]{sol5grau_var}
 \end{figure}
 
-\chapter{Eficiência e tolerancia a falhas}
+\chapter{Eficiência}
 

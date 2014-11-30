@@ -2,22 +2,66 @@
 Aqui estão descritos os testes do algoritmo de acordo com a matriz $A$ dada.
 
 \section{Posto completo}
-A entrada do algoritmo recebeu uma matriz A com posto completo para realizar
-o cálculo da solução e seu resíduo em quadrados mínimos.
+A entrada do algoritmo recebeu uma matriz $A$ com posto completo para realizar
+o cálculo da solução e seu resíduo em quadrados mínimos e o vetor $b$.
 
-A saída do programa foi a seguinte:
+Para a construcao do suposto polinômio de grau 5, foi construida a matriz $Ax = b$
+onde:
+
+\[
+A =	\left(
+\begin{array}{ccccc} 
+1&	x_1^1&	x_1^2&	x_1^3&	x_1^4\\
+1&	x_2^1&	x_2^2&	x_2^3&	x_2^4\\
+&&\ldots\\
+1&	x_70^1&	x_70^2&	x_70^3&	x_70^4\\
+\end{array}
+\right)
+b =   
+\left(
+\begin{array}{c}
+y1\\
+y2\\
+\ldots\\
+y69\\
+y70 
+\end{array}    
+\right)
+\]
+
+Comparando-o ao polinômio original e verificando se os coeficientes 
+são razoavelmente próximos do original.
+
+
+Para a construção do polinômio de grau 4 foi construida a matriz $Ax = b$ de forma
+semelhante ao de grau 5:
+\[A =	
+\left(
+\begin{array}{cccc}
+1 &	x_1^1 &	x_1^2 &	x_1^3\\
+1 &	x_2^1 &	x_2^2 &	x_2^3\\
+&&\dots          \\
+1 &	x_20^1 &	x_20^2 &	x_20^3\\
+\end{array} 
+\right)
+b =  
+\left(
+\begin{array}{c}
+y1\\
+y2\\
+\ldots\\
+y19\\
+y20\\ 
+\end{array}   
+\right)
+\]
+A mesma construção foi utilizada para polinômios de grau 3 e 2.
+
+
 \section{Posto incompleto}
 
 A entrada do algoritmo recebeu uma matriz A com posto imcompleto para realizar
 o cálculo da solução e seu resíduo em quadrados mínimos.
-
-A saída do programa foi a seguinte:
-
-\section{Entrada consistente}
-A inconsistência da entrada pode modificar e até mesmo anular os resultados
-obtidos através do algoritmos. Por isso, é necessário que o mesmo possua 
-métodos para impedir que dados inconsistentes sejam calculados, tornando
-a solução mais confiável e o algoritmo eficaz.
 
 
 \chapter{Efeitos da perturbação em diferentes funções}
@@ -43,5 +87,5 @@ A compararação dos resultados foram feitas de acordo com o grau do polinômio.
 Os dados do vetor de entrada de A e b foram perturbados em 15\%.
 A compararação dos resultados foram feitas de acordo com o grau do polinômio.
 
-\chapter{Base que estabiliza a matriz}
+
 

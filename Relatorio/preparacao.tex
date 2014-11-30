@@ -40,36 +40,57 @@
 	
 	
 	Consiste em um estimador que minimiza a soma dos quadrados dos resíduos, de forma a maximizar o grau de ajuste do modelo aos dados observados.\cite{wikipedia}
-	
-	\section{Resolução do sistema utilizando QR}
+
 
 
 \chapter{Algoritmo para decomposição QR}
 Por questão da otimização de código e eficiência de cálculos, a matriz $Q$ é representada em forma $Q = (I - \gamma uu^T)$. A prova de que a matriz $Q$ pode ser escrita nesta forma está desenvolvida em \cite{watkins}.
 
-\section{Cálculo da Q}
-	Dado um $x \in \mathbb{R}^n$, para calcular $\tau$, $\gamma$, e $u$ tais que $Q = (I - \gamma uu^T)$ é um refletor para o qual $Qx = [-\tau 0 \ldots 0]^T$ basta executar o algoritmo a seguir:
+A ordem do algoritmo de decomposição QR com posto incompleto consiste em:
+\begin{enumerate}
+	\item Determinar o elemento de maior valor absoluto $max$ da matriz $A_{nm}$
+	\item Multiplicar a matriz A por $\frac{1}{max}$ 
+	
+	\textbf{Inicia o loop.}
+	  \item Calcular/Recalcular a norma das colunas de $A_{nm}$
+	  \item Permutar a coluna atual com a coluna de maior norma
+	  \item Encontrar a $Q$ e fazer $QA$
+	  
+	\textbf{Finaliza o loop.}
+\end{enumerate}
+
+Os passos 1 e 2 do algoritmo tem por finalidade evitar overflow no cálculo
+das normas, uma vez que todos os elementos da matriz, após o passo 2, 
+serão <= $\|1\|$ (menor igual a módulo de 1).
+
+A iteração sobre os passos 3 e 4 'empurram' possíveis pivôs nulos para a direita 
+da matriz no caso da matriz $A$ possuir posto incompleto. 
+As normas ao quadrado de cada coluna são armazenadas em um vetor separadamente. Para
+o seu recálculo da iteração~$i$~($i$~>~2), apenas subtrai-se os elementos de cada coluna da 
+linha anterior a partir de $i$. Após a permutação da coluna, caso a norma seja equivalente
+a zero (menor que um certo epsilon), significa que as submatrizes de $A$ a serem decompostas 
+são nulas, uma vez que a maior delas vale zero.
+
+No passo 5, para encontrar a matriz $Q = (I - \gamma uu^T)$, basta apenas encontrar
+$\gamma$, $u$ e $\sigma$ (norma de $u$). Não é necessário calcular explicitamente Q. 
+Para o produto $QA$ a cada iteração, temos: $QA$ = $A - u  ((\gamma  u^T)  A)$.
+Na iteração $i$, como as linhas da coluna $i$ serao zeradas, nestas posições sao armazenadas
+o vetor $u$.
+
+\section{Solução dos Mínimos Quadrados com QR}
+Dada uma matriz $Ax = b$; $A^{n \times m}$;$ b^{n \times 1}$; $n > m$,
+é desejado minimizar  $||r|| = || Ax - b ||$.  Utilizando o fato
+de que a matriz Q e ortogonal, tem-se  $|| Ax - b || = || Q^T QRx - Q^Tb || = || Rx - Q^Tb ||$.
+
+Assim, para posto completo minimizar $||r||$ implica em:
+$||r|| =  ||c - Rx|| + ||d||$
+[formula 3.3.5 p. 229 do livro Watkins]
 
 
-\begin{alltt}
-  \( \beta \leftarrow max_{1 \le i \le n} \|x_i\| \)
-  if(\(\beta = 0\))
-  then \{
-  		\(\gamma \leftarrow 0\)\}
-  else \{
-  		\(x_{1:n} \leftarrow x_{1:n}/\beta\)
-  	\}
-  while \(i \leq 100\)
-  \{
-    for \(j < \infty\)
-    do
-      foo\((i,j)\)
-    done
-  \}
-\end{alltt}
-
-	\[\beta \leftarrow \]
-	\[\]
-etc... [Por pseudo códigos aqui.]
+para posto incompleto:
+[p. 233 do livro Watkins, antes do teorema 3.3.12]
 
 
+onde $x_2$ foi escolhido arbitrariamente como [0 ... 1 ... 1]
+                                     indice 1 ... r ... m
+				     $r$ = posto de $A$

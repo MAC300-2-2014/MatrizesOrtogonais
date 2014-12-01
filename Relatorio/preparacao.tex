@@ -4,11 +4,11 @@
 	Se A for uma matriz não-singular então é possível decompô-la em um produto de matrizes 
 	$QR$, onde $Q$ é ortogonal e $R$ é uma matriz triangular superior de diagonal não-nula. Esta decomposição é única e sempre existe.
 	
-	Para obter essa decomposição deve-se encontrar uma sequência de $Q_i ^T$, $i~ =~ 1,...,m$ onde m é o número de colunas do sistema, sendo que cada uma dessas $Q_i^T$ transforma cada $i$-ésima coluna em zeros abaixo da $i$-ésima posição, formando assim a matriz triangular superior $R$. Tendo assim que
+	Para obter essa decomposição deve-se encontrar uma sequência de $Q_i ^T$, $i~ =~ 1,...,m$ onde m é o número de colunas do sistema, sendo que cada uma dessas $Q_i^T$ transforma cada $i$-ésima coluna em zeros abaixo da $i$-ésima posição, formando assim a matriz triangular superior $R$.\cite{sawp} Tendo assim que
 	
 	\[Q_{n-1} ^TQ_{n-2} ^T \ldots Q_{1} ^T A = R\]
 	
-	Como cada $Q_i ^T$ é ortogonal, temos $A = QR$, onde \[Q = [Q_{n-1} ^T Q_{n-2} ^T \ldots Q_{1} ^T]^T \]\textbf{http://www.sawp.com.br/blog/?p=689}%\cite{sawp}
+	Como cada $Q_i ^T$ é ortogonal, temos $A = QR$, onde \[Q = [Q_{n-1} ^T Q_{n-2} ^T \ldots Q_{1} ^T]^T \]
 	\section{Cálculo o vetor x}
 	Para resolver um sistema $Ax=b$ podemos decompor a matriz $A$ em termos de $Q$ e $R$ como \[ A = Q{R \brack 0}\] com a matriz $Q$ sendo quadrada de dimensão $n\times n$ e $R$ triangular-superior de dimensão~ $n\times m$.
 	A equação toma a forma \[QTx = b\] que pode ser escrito como \[Rx=Q^Tb\]
@@ -84,13 +84,3 @@ de que a matriz Q e ortogonal, tem-se  $|| Ax - b || = || Q^T QRx - Q^Tb || = ||
 
 Assim, para posto completo minimizar $||r||$ implica em:
 $||r|| =  ||c - Rx|| + ||d||$
-[formula 3.3.5 p. 229 do livro Watkins]
-
-
-para posto incompleto:
-[p. 233 do livro Watkins, antes do teorema 3.3.12]
-
-
-onde $x_2$ foi escolhido arbitrariamente como [0 ... 1 ... 1]
-                                     indice 1 ... r ... m
-				     $r$ = posto de $A$

@@ -200,10 +200,7 @@
 % resumo na língua vernácula (obrigatório)
 \setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
 \begin{resumo}
-Este relatório trata do desenvolvimento do algoritmo da decomposiçao QR
- por refletores, com implementacao do posto incompleto e tambem de seu uso
- para resolucao de ajuste de curvas pelo metodo dos minimos quadrados.Por fim, todos os resultados foram condizentes com 
-o esperado.
+Este relatório trata do desenvolvimento do algoritmo da decomposição QR por refletores, com implementação do posto incompleto e também de seu uso para resolução de ajuste de curvas pelo método dos mínimos quadrados. Por fim, todos os resultados foram condizentes com o esperado.
 
  \noindent
  \textbf{Palavras-chaves}: QR. problema quadrados mínimos. resolução de sistemas lineares.
@@ -290,6 +287,17 @@ Para resolver esse problema, utilizou-se o conceito de matriz ortogonal, que é 
 inversa coincide com sua transposta, por esta possuir número de condição igual a 1, isto é, é bem condicionada.
 Matrizes ortogonais nos permitem realizar operações com o sistema $Ax=b$ sem perder a precisão de sua solução.
 
+\section*{Execução}
+
+Para compilar o programa basta digitar o comando:
+
+\verb!$ make!
+Para executá-lo é necessário passar o nome do arquivo com os dados da matriz. Por exemplo:
+
+\verb!$ ./main m1.txt!
+
+Observação: A entrada da matriz possui o mesmo formato de entrada do EP1, porém na segunda linha haverá um inteiro $m$, indicando a dimensão da coluna da matriz.
+
 
 
 
@@ -332,7 +340,30 @@ Matrizes ortogonais nos permitem realizar operações com o sistema $Ax=b$ sem p
 \chapter*[Conclusão]{Conclusão}
 \addcontentsline{toc}{chapter}{Conclusão}
 
-\lipsum[31-33]
+
+O algoritmo desenvolvido apresentou desempenho conforme o esperado
+ao lidar com matrizes de posto completo, para as quais foram 
+calculadas as funções aproximadas e seus resíduos, e também de
+posto incompleto, onde apresentou solução esperada para o
+caso testado.
+
+
+Como se pode notar nos resultados, ao aumentar o grau do polinômio
+com o qual se buscava aproximar os dados, diminuiu-se o resíduo, isto é,
+a diferença entre os pontos e a função era menor. Com isso, obtinha-se 
+melhor estimação do que poderiam valer os pontos não descritos no sistema.
+Este fato também comprova a teoria de que quanto maior o grau do polinômio
+melhor é a aproximação com o método dos mínimos quadrados.
+
+
+Ao perturbar os valores de entrada, tanto dos coeficientes da matriz quanto
+dos valores do vetor, pode-se notar que a aproximação ainda continuava com 
+as mesmas características com o aumento do grau do polinômio aproximador.
+
+
+Alcançou-se o objetivo do algoritmo ao se confirmar os resultados teóricos
+em testes e experimentações, tanto quanto sua eficiência na resolução de
+sistemas lineares e minimização de resíduos de funções.
 
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS

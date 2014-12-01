@@ -9,16 +9,16 @@
 	\[Q_{n-1} ^TQ_{n-2} ^T \ldots Q_{1} ^T A = R\]
 	
 	Como cada $Q_i ^T$ é ortogonal, temos $A = QR$, onde \[Q = [Q_{n-1} ^T Q_{n-2} ^T \ldots Q_{1} ^T]^T \]
-	\section{Cálculo o vetor x}
+	\section{Cálculo do vetor x}
 	Para resolver um sistema $Ax=b$ podemos decompor a matriz $A$ em termos de $Q$ e $R$ como \[ A = Q{R \brack 0}\] com a matriz $Q$ sendo quadrada de dimensão $n\times n$ e $R$ triangular-superior de dimensão~ $n\times m$.
-	A equação toma a forma \[QTx = b\] que pode ser escrito como \[Rx=Q^Tb\]
+	A equação toma a forma \[Q^Tx = b\] que pode ser escrito como \[Rx=Q^Tb\]
 	Pode-se então separar a solução em dois passos:
 	\begin{enumerate}
 	\item Calcular $y = Q^Tb$
 	\item Resolver o sistema $Rx = y$
 	\end{enumerate}
 	
-	No desenvolvimento do algoritmo não calculou-se explicitamente as matrizes $Q$ e $R$ para aumentar sua eficiência. A forma com que os valores necessários para o cálculo da solução são armazenados e utilizados está descrito no algoritmo para decomposição $QR$.
+	No desenvolvimento do algoritmo não se calculou explicitamente as matrizes $Q$ e $R$ para aumentar sua eficiência. A forma com que os valores necessários para o cálculo da solução são armazenados e utilizados está descrito no algoritmo para decomposição $QR$.
 	
 	\section{Reutilização do QR para qualquer b}
 	Uma vez calculada a decomposição $QR$ de uma matriz $A$, basta realizar os passos anteriores e obter novas soluções variando apenas os dados de $b$.
@@ -40,47 +40,51 @@
 	
 	
 	Consiste em um estimador que minimiza a soma dos quadrados dos resíduos, de forma a maximizar o grau de ajuste do modelo aos dados observados.\cite{wikipedia}
+	
+	\section{Ordem do algoritmo}
+	Calculando a ordem do algoritmo, temos:
+	
+	Passo 1: ordem $nm$;
+
+	Passo 2: ordem $[(nm)+(m-1)+(m-2)+\ldots +1] \approx nm + m^2$;
+	
+	Passo 3: ordem $nm$;
+	
+	Passo 4: ordem $n + (n-1) + \ldots + 1 \approx n^2$;
+	
+	Passo 5: ordem $3nm + 3(n-1)(m-1) + \ldots + 3 \approx nm^2$;
+	
+	No total: $\approx m^2+n^2+3nm+m^2 n$.
 
 
 
 \chapter{Algoritmo para decomposição QR}
-Por questão da otimização de código e eficiência de cálculos, a matriz $Q$ é representada em forma $Q = (I - \gamma uu^T)$. A prova de que a matriz $Q$ pode ser escrita nesta forma está desenvolvida em \cite{watkins}.
 
-A ordem do algoritmo de decomposição QR com posto incompleto consiste em:
-\begin{enumerate}
-	\item Determinar o elemento de maior valor absoluto $max$ da matriz $A_{nm}$
-	\item Multiplicar a matriz A por $\frac{1}{max}$ 
-	
-	\textbf{Inicia o loop.}
-	  \item Calcular/Recalcular a norma das colunas de $A_{nm}$
-	  \item Permutar a coluna atual com a coluna de maior norma
-	  \item Encontrar a $Q$ e fazer $QA$
-	  
-	\textbf{Finaliza o loop.}
-\end{enumerate}
 
-Os passos 1 e 2 do algoritmo tem por finalidade evitar overflow no cálculo
-das normas, uma vez que todos os elementos da matriz, após o passo 2, 
-serão <= $\|1\|$ (menor igual a módulo de 1).
+A decomposição da matriz $A \in R^{n\times m}$
+ em $QR$, $Q \in R^{n\times n}$, $R \in R^{n\times m}$, $n > m$ segue os seguintes passos:
+\newline
 
-A iteração sobre os passos 3 e 4 'empurram' possíveis pivôs nulos para a direita 
-da matriz no caso da matriz $A$ possuir posto incompleto. 
-As normas ao quadrado de cada coluna são armazenadas em um vetor separadamente. Para
-o seu recálculo da iteração~$i$~($i$~>~2), apenas subtrai-se os elementos de cada coluna da 
-linha anterior a partir de $i$. Após a permutação da coluna, caso a norma seja equivalente
-a zero (menor que um certo epsilon), significa que as submatrizes de $A$ a serem decompostas 
-são nulas, uma vez que a maior delas vale zero.
 
-No passo 5, para encontrar a matriz $Q = (I - \gamma uu^T)$, basta apenas encontrar
-$\gamma$, $u$ e $\sigma$ (norma de $u$). Não é necessário calcular explicitamente Q. 
-Para o produto $QA$ a cada iteração, temos: $QA$ = $A - u  ((\gamma  u^T)  A)$.
-Na iteração $i$, como as linhas da coluna $i$ serao zeradas, nestas posições sao armazenadas
-o vetor $u$.
+1) Determinar o elemento de maior valor $max$ da matriz $A$ e determinar $Â = \frac{1}{max}A$;
 
-\section{Solução dos Mínimos Quadrados com QR}
-Dada uma matriz $Ax = b$; $A^{n \times m}$;$ b^{n \times 1}$; $n > m$,
-é desejado minimizar  $||r|| = || Ax - b ||$.  Utilizando o fato
-de que a matriz Q e ortogonal, tem-se  $|| Ax - b || = || Q^T QRx - Q^Tb || = || Rx - Q^Tb ||$.
+Loop ($i = 0 ... m$)
 
-Assim, para posto completo minimizar $||r||$ implica em:
-$||r|| =  ||c - Rx|| + ||d||$
+2) Calcular a norma das colunas da submatriz $Â_{(n-i)\times (m-i)}$ e armazenar no vetor sigma;
+
+3) Permutar a coluna $i$ com a que possuir maior norma em sigma (busca nos índices $k = i \ldots m$). Caso a maior norma seja menor que epsilon parar;
+
+4) Encontrar $u, u^T e \gamma $ para determinar $Q= I - \gamma u u^T$;
+
+5) Calcular $QÂ_i$ e armazenar $u$.
+\newline
+
+
+O passo 1 tem por objetivo evitar overflow nos cálculos das normas, pois $\forall a_{ij} \le |1|$.
+
+A iteração sobre o passo 2 e 3 'empurram’ possíveis pivôs nulos para a matriz, no caso de $A$ possuir posto incompleto. Para o recálculo das normas basta extrair os elementos de cada coluna da linha anterior a partir da iteração $i = 1 \ldots r$ ($r$ = posto de $A$).
+
+No passo 5, é possível calculá-lo de forma econômica processando  $QA= A - u((\gamma  u^T)A)$
+
+Como as linhas da coluna $i$ serão zeradas, nestas posições são armazenadas o vetor u.
+

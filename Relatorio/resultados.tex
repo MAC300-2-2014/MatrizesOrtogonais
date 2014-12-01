@@ -35,12 +35,11 @@ com valores pré-determinados\[ x =
 \right)\]
 
 Note que a terceira e a quarta linha sao combinações lineares da primeira e segunda linha.
+Enviando a matriz A e o vetor b para o programa (arquivo postoinc.txt), obtemos o resultado $x_0 = 10$ ~e~ $x_1 = 5$, com resíduo 16.44817.
 
-Enviando este arquivo para o programa, temos como resultado:
-\(x_0 = 10.00000 $e$ x_1 = 5.00000 \) com resíduo = 16.44817 .
+A solução é razoável, uma vez que a matriz A é singular, porém não é a melhor solução gerada, pois a encontrada pelo programa apresenta o resíduo de 16.448, enquanto o resíduo com o sistema utilizando $x_1$ é zero.
 
-Tem-se para as soluções geradas do programa, o mesmo resultado $b$. É razoavel, 
-uma vez que a matriz $A$ e singular. 
+
 
 
 \chapter{Resolução de sistema com posto completo e problema dos quadrados mínimos}
@@ -145,4 +144,6 @@ com resíduos 61.44919  para perturbação em $b$ e 47.96817 para perturbação 
 \centering
 \includegraphics[scale=0.7]{sol5grau_var}
 \end{figure}
+
+Note que a o resíduo ($||s||$) aumenta cada vez que o grau da solução do polinômio diminui. Isto indica que o 'erro’ da aproximação está sendo cada vez maior.\footnote{Observação: estes testes podem ser realizados com os arquivos matgrau5.txt, matgrau4.txt, matgrau3.txt, matgrau2.txt.}
 

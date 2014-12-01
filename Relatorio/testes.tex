@@ -1,6 +1,34 @@
 \chapter{Testes de eficiência do algoritmo}
 Aqui estão descritos os testes do algoritmo de acordo com a matriz $A$ dada.
 
+\section{Decomposição QR para solução de quadrados mínimos}
+
+Caso a matriz $A$ possua posto completo a decomposição final será:
+
+\[ s =
+\left(\begin{array}{c} R_1 \\ 0\end{array}\right) x- \left(\begin{array}{c} c_1 \\ c_2\end{array}\right) =  \left(\begin{array}{c} R_1 x - c_1 \\ c_2\end{array}\right) ~(1)
+\]
+
+Caso a matriz $A$ possua posto incompleto a decomposição final será:
+\[ s =
+\left(\begin{array}{cc} R_1 & R_2\\ 0&0\end{array}\right) \left(\begin{array}{c} x_1 \\ x_2\end{array}\right)- \left(\begin{array}{c} c_1 \\ c_2\end{array}\right) =  \left(\begin{array}{c} R_{11} x_1 + R_{12}x_2- c_1 \\ c_2\end{array}\right) ~(2)
+\]
+
+Tomando a norma:
+
+ (1) $||s|| = || R_1x - c_1 || + ||c_2||$
+
+ (2) $||s|| = ||R_{11}x_1 + R_{12}x_2 - c_1|| + ||c_2||$
+
+Desta forma, a minimização de $s$ consiste em minimizar $|| R_1x - c_1 ||$ para posto 
+completo e $||R_{11}x_1+R_{12}x_2 - c_1||$ para posto incompleto. Como $R_1$ e $R_{11}$ não são 
+singulares (triangular superior $r \times r$, onde $r$ = posto), existe uma solução única para $x$ e $x_1$ que 
+minimiza $s$. No caso do posto incompleto, toma-se $x_2$ arbitrário para a solução de $R_{11}x_1 + R_{12}x_2 = c_1$
+
+(A solução será única para $x^2$ escolhido pois $R_{11}$ não é singular).
+Aplicando estes conceitos, foram gerados os testes a seguir.
+
+
 \section{Posto completo}
 A entrada do algoritmo recebeu uma matriz $A$ com posto completo para realizar
 o cálculo da solução e seu resíduo em quadrados mínimos e o vetor $b$.
